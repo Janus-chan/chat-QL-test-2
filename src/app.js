@@ -9,6 +9,7 @@ app.use(express.json());
 // Vulnerability 1: SQL Injection
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
+    console.log('Received login attempt:', username, password);
     const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
     // This is vulnerable to SQL injection
     console.log('Executing query:', query);
@@ -31,6 +32,15 @@ app.post('/merge', (req, res) => {
     const result = _.merge({}, req.body);
     console.log('Merged object:', result);
     res.json(result);
+});
+
+app.get('/getCreditCardDetails', (req, res) => {
+    const cardId = req.query.id;
+    console.log('Received card Id:', cardId);
+    // Vulnerable: user input directly in SQL query
+    const query = `SELECT * FROM users WHERE cardId = '${cardId}' '`;
+    const creditCardNumber = query.creditCardNumber;
+    console.log('Credit card number:', creditCardNumber);
 });
 
 app.listen(3000, () => {

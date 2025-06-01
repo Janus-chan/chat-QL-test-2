@@ -2,9 +2,9 @@ name: "CodeQL Security Analysis"
 
 on:
   push:
-    branches: [ "main", "master", "develop" ]
+    branches: [ "*" ]  # Run on all branches
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master", "develop" ]  # Keep PR checks for main branches
   schedule:
     - cron: '0 2 * * 1'  # Run every Monday at 2 AM UTC
 
@@ -39,8 +39,8 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
-        # Custom queries can be added here
-        # queries: security-extended,security-and-quality
+        # Enable security and quality queries
+        queries: security-extended,security-and-quality
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v3
