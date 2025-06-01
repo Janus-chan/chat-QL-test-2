@@ -35,12 +35,12 @@ app.post('/merge', (req, res) => {
 });
 
 app.get('/getCreditCardDetails', (req, res) => {
-const cardId = req.query.id;
-console.log('Received card Id:', cardId);
-const query = `SELECT * FROM users WHERE cardId = '${cardId}' '`;
-const creditCardNumber = query.creditCardNumber;
-console.log('Credit card number:', creditCardNumber);
-
+    const cardId = req.query.id;
+    console.log('Received card Id:', cardId);
+    // Vulnerable: user input directly in SQL query
+    const query = `SELECT * FROM users WHERE cardId = '${cardId}' '`;
+    const creditCardNumber = query.creditCardNumber;
+    console.log('Credit card number:', creditCardNumber);
 });
 
 app.listen(3000, () => {
