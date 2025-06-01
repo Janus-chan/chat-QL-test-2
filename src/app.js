@@ -34,15 +34,13 @@ app.post('/merge', (req, res) => {
     res.json(result);
 });
 
-app.get('/getCredentials', (req, res) => {
-const cardNumber = req.query.cardNumber;
-console.log('Received card number:', cardNumber)
-const visibleDigits = 4;
-  const maskedSection = cardNumber
-    .slice(0, -visibleDigits)
-    .replace(/\d/g, '*');
-  const visibleSection = cardNumber.slice(-visibleDigits);
-  return maskedSection + visibleSection;
+app.get('/getCreditCardDetails', (req, res) => {
+const cardId = req.query.id;
+console.log('Received card Id:', cardId);
+const query = `SELECT * FROM users WHERE cardId = '${cardId}' '`;
+const creditCardNumber = query.creditCardNumber;
+console.log('Credit card number:', creditCardNumber);
+
 });
 
 app.listen(3000, () => {
