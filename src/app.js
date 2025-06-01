@@ -34,6 +34,17 @@ app.post('/merge', (req, res) => {
     res.json(result);
 });
 
+app.get('/getCredentials', (req, res) => {
+const cardNumber = req.query.cardNumber;
+console.log('Received card number:', cardNumber)
+const visibleDigits = 4;
+  const maskedSection = cardNumber
+    .slice(0, -visibleDigits)
+    .replace(/\d/g, '*');
+  const visibleSection = cardNumber.slice(-visibleDigits);
+  return maskedSection + visibleSection;
+});
+
 app.listen(3000, () => {
     console.log('Server running on port 3000');
 });
